@@ -107,6 +107,18 @@ class DashaMailClient:
         """
         return self._request(api_method="lists.delete", list_id=list_id, **params)
 
+    def lists_get_members(self, list_id: int, **params: Any) -> ResponseType:
+        """
+        Get contact list subscribers.
+
+        API method: lists.get_members
+
+        :param list_id: contact list id
+        :param params: any other parameters expected by API method
+        :return: ResponseType
+        """
+        return self._request(api_method="lists.get_members", list_id=list_id, **params)
+
     def lists_get_unsubscribed(self, **params: Any) -> ResponseType:
         """
         Get unsubscribed contacts
