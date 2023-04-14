@@ -31,11 +31,11 @@ class DashaMailClient:
     """
 
     def __init__(
-        self,
-        api_key: str,
-        timeout: float = 10.0,
-        raise_for_error: bool = False,
-        requests_params: Optional[dict] = None,
+            self,
+            api_key: str,
+            timeout: float = 10.0,
+            raise_for_error: bool = False,
+            requests_params: Optional[dict] = None,
     ) -> None:
         self.base_url = "https://api.dashamail.com"
         self.response_format = "json"
@@ -306,3 +306,16 @@ class DashaMailClient:
 
     def lists_delete_merge(self, **params):
         raise NotImplementedError("TODO")
+
+    def campaigns_create(self, list_id: List[int], name: Optional[str], status: Optional[str],
+                         **params: Any) -> ResponseType:
+        """
+        Create a new campaign.
+
+        API method: campaigns.create.
+
+        :param list_id: list of address books to make campaign for.
+        :param name: name of campaign.
+        :param status: status of campaign.
+        """
+        return self._request(api_method='campaigns.create', list_id=list_id, **params)
