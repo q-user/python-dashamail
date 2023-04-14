@@ -49,7 +49,7 @@ class DashaMailClient:
 
     def _request(self, api_method: str, http_method: str = 'GET', **params: Any) -> ResponseType:
         payload = {**self.base_params, "method": api_method, **params}
-        raw_response = requests.request(http_method, url=self.base_url, params=payload, timeout=self.timeout,
+        raw_response = requests.request(http_method, url=self.base_url, data=payload, timeout=self.timeout,
                                         **self.requests_params)
         json_response = raw_response.json().get("response", {})
 
