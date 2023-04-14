@@ -15,7 +15,7 @@ Copyright 2022 Vitaly Samigullin and contributors. All rights reserved.
 
 SPDX-License-Identifier: Apache-2.0
 """
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Dict
 
 import requests
 
@@ -307,7 +307,7 @@ class DashaMailClient:
     def lists_delete_merge(self, **params):
         raise NotImplementedError("TODO")
 
-    def campaigns_create(self, list_id: List[int], name: Optional[str] = None, status: Optional[str] = 'DRAFT',
+    def campaigns_create(self, list_id: Dict, name: Optional[str] = None, status: Optional[str] = 'DRAFT',
                          **params: Any) -> ResponseType:
         """
         Create a new campaign.
