@@ -15,7 +15,7 @@ Copyright 2022 Vitaly Samigullin and contributors. All rights reserved.
 
 SPDX-License-Identifier: Apache-2.0
 """
-from typing import Any, List, Optional, Dict
+from typing import Any, List, Optional
 
 import requests
 
@@ -307,7 +307,7 @@ class DashaMailClient:
     def lists_delete_merge(self, **params):
         raise NotImplementedError("TODO")
 
-    def campaigns_create(self, list_id: List[int], name: Optional[str] = None, status: Optional[str] = 'DRAFT',
+    def campaigns_create(self, list_id: List[int], name: Optional[str] = None, draft: bool = True,
                          **params: Any) -> ResponseType:
         """
         Create a new campaign.
@@ -316,6 +316,12 @@ class DashaMailClient:
 
         :param list_id: list of address books to make campaign for.
         :param name: name of campaign.
-        :param status: status of campaign.
+        :param draft: status of campaign is it draft or template. Default is True, i.e. draft.
         """
-        return self._request(api_method='campaigns.create', list_id=list_id, **params)
+        return self._request(
+            api_method='campaigns.create',
+            list_id=list_id,
+            name=name,
+            draft='DRAFT' if draft else 'TEMPLATE',
+            **params
+        )
