@@ -47,9 +47,10 @@ class DashaMailClient:
 
         self.base_params = {"api_key": self.api_key, "format": self.response_format}
 
-    def _request(self, api_method: str, **params: Any) -> ResponseType:
+    def _request(self, api_method: str, http_method: str = 'GET', **params: Any) -> ResponseType:
         payload = {**self.base_params, "method": api_method, **params}
-        raw_response = requests.get(url=self.base_url, params=payload, timeout=self.timeout, **self.requests_params)
+        raw_response = requests.request(http_method, url=self.base_url, params=payload, timeout=self.timeout,
+                                        **self.requests_params)
         json_response = raw_response.json().get("response", {})
 
         error = json_response.get("msg", {})
@@ -320,6 +321,7 @@ class DashaMailClient:
         """
         return self._request(
             api_method='campaigns.create',
+            http_method='POST',
             list_id=list_id,
             name=name,
             draft='DRAFT' if draft else 'TEMPLATE',
