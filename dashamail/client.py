@@ -70,7 +70,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.get", **params)
+        return self._request(http_method='GET', api_method="lists.get", **params)
 
     def lists_add(self, name: str, **params: Any) -> ResponseType:
         """
@@ -82,7 +82,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.add", name=name, **params)
+        return self._request(http_method='POST', api_method="lists.add", name=name, **params)
 
     def lists_update(self, list_id: int, **params: Any) -> ResponseType:
         """
@@ -94,7 +94,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.update", list_id=list_id, **params)
+        return self._request(http_method='POST', api_method="lists.update", list_id=list_id, **params)
 
     def lists_delete(self, list_id: int, **params: Any) -> ResponseType:
         """
@@ -106,7 +106,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.delete", list_id=list_id, **params)
+        return self._request(http_method='GET', api_method="lists.delete", list_id=list_id, **params)
 
     def lists_get_members(self, list_id: int, **params: Any) -> ResponseType:
         """
@@ -118,7 +118,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.get_members", list_id=list_id, **params)
+        return self._request(http_method='GET', api_method="lists.get_members", list_id=list_id, **params)
 
     def lists_get_unsubscribed(self, **params: Any) -> ResponseType:
         """
@@ -129,7 +129,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.get_unsubscribed", **params)
+        return self._request(http_method='GET', api_method="lists.get_unsubscribed", **params)
 
     def lists_get_complaints(self, **params: Any) -> ResponseType:
         """
@@ -140,7 +140,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.get_complaints", **params)
+        return self._request(http_method='GET', api_method="lists.get_complaints", **params)
 
     def lists_member_activity(self, email: str, **params: Any) -> ResponseType:
         """
@@ -152,7 +152,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.member_activity", email=email, **params)
+        return self._request(http_method='GET', api_method="lists.member_activity", email=email, **params)
 
     def lists_upload(self, list_id: int, file_url: str, email_col_num: int, **params: Any) -> ResponseType:
         """
@@ -166,7 +166,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.upload", list_id=list_id, file=file_url, email=email_col_num, **params)
+        return self._request(http_method='GET', api_method="lists.upload", list_id=list_id, file=file_url, email=email_col_num, **params)
 
     def lists_add_member(self, list_id: int, email: str, **params: Any) -> ResponseType:
         """
@@ -193,7 +193,7 @@ class DashaMailClient:
         :return: ResponseType
         """
         batch_str = ";".join([",".join(s) for s in batch]) + ";"
-        return self._request(api_method="lists.add_member_batch", list_id=list_id, batch=batch_str, **params)
+        return self._request(http_method='POST', api_method="lists.add_member_batch", list_id=list_id, batch=batch_str, **params)
 
     def lists_update_member(self, member_id: int, email: str, list_id: int, **params: Any) -> ResponseType:
         """
@@ -297,7 +297,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.check_email", email=email, list_id=list_id, **params)
+        return self._request(http_method='GET', api_method="lists.check_email", email=email, list_id=list_id, **params)
 
     def lists_add_merge(self, **params):
         raise NotImplementedError("TODO")
