@@ -48,11 +48,19 @@ class DashaMailClient:
         self.base_params = {"api_key": self.api_key, "format": self.response_format}
 
     def _request(self, api_method: str, http_method: str = 'GET', **params: Any) -> ResponseType:
-        payload = {**self.base_params, "method": api_method, **params}
-        raw_response = requests.request(http_method, url=self.base_url, json=payload, timeout=self.timeout,
+        payload = {}
+        match http_method:
+            case 'GET':
+                payload.update({
+                    'params': {**self.base_params, "method": api_method, **params}
+                })
+            case 'POST':
+                payload.update({
+                    'json': {**self.base_params, "method": api_method, **params}
+                })
+        raw_response = requests.request(http_method, url=self.base_url, timeout=self.timeout, **payload,
                                         **self.requests_params)
         json_response = raw_response.json().get("response", {})
-
         error = json_response.get("msg", {})
         if error.get("err_code") != 0 and self.raise_for_error:
             raise DashaMailAPIError(
@@ -166,7 +174,8 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(http_method='GET', api_method="lists.upload", list_id=list_id, file=file_url, email=email_col_num, **params)
+        return self._request(http_method='GET', api_method="lists.upload", list_id=list_id, file=file_url,
+                             email=email_col_num, **params)
 
     def lists_add_member(self, list_id: int, email: str, **params: Any) -> ResponseType:
         """
@@ -193,7 +202,8 @@ class DashaMailClient:
         :return: ResponseType
         """
         batch_str = ";".join([",".join(s) for s in batch]) + ";"
-        return self._request(http_method='POST', api_method="lists.add_member_batch", list_id=list_id, batch=batch_str, **params)
+        return self._request(http_method='POST', api_method="lists.add_member_batch", list_id=list_id, batch=batch_str,
+                             **params)
 
     def lists_update_member(self, member_id: int, email: str, list_id: int, **params: Any) -> ResponseType:
         """
