@@ -188,7 +188,7 @@ class DashaMailClient:
         :param params: any other parameters expected by API method
         :return: ResponseType
         """
-        return self._request(api_method="lists.add_member", list_id=list_id, email=email, **params)
+        return self._request(http_method='POST', api_method="lists.add_member", list_id=list_id, email=email, **params)
 
     def lists_add_member_batch(self, list_id: int, batch: List[List[str]], **params: Any) -> ResponseType:
         """
